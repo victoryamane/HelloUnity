@@ -7,8 +7,12 @@ public class PlayerInput : MonoBehaviour {
     [SerializeField] private Animator animator;
 
     [SerializeField] private float speed;
-    [SerializeField] private float jump;
+    [SerializeField] private float jumpTime;
     [SerializeField] private LayerMask[] layerHit;
+
+    private bool isGrounded;
+    private bool isJumping;
+    private float jumpTimer;
 
     private int mask = 0;
 
@@ -33,21 +37,10 @@ public class PlayerInput : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        Translate();
-        // 1   0b1
-        // 2   0b10
-        // 16  0b10000
-        // 15 << 2  0b111100 =  4 + 8 + 16 + 32  = 60      
-        //  1 << 9  0b1000000000 = 512
-        // int ground = 1 << 9; // 0b01000000000
-        // int enemy = 1 << 10; // 0b10000000000
-        // int mask = ground | enemy; // 0b11000000000 512 + 1024  = 1536
-
-
         int numberOfContacts = Physics2D.RaycastNonAlloc(transform.position, Vector2.down, hits, 1f, mask);
-        for (int index = 0; index < numberOfContacts; index += 1) {
-            RaycastHit2D hit = hits[index];
-        }
+        isGrounded = numberOfContacts > 0;
+
+        Translate();
     }
 
     private void OnDrawGizmos() {
@@ -70,9 +63,24 @@ public class PlayerInput : MonoBehaviour {
             state = PlayerState.IDLE;
         }
 
-        if (Input.GetKey("up") || Input.GetKey("w")) {
+        if (!isGrounded) {
+            state = PlayerState.JUMP;
+        }
+
+        if (isGrounded && (Input.GetKeyDown("up") || Input.GetKeyDown("w"))) {
+            isJumping = true;
+            jumpTimer = jumpTime;
             velocity.y = 1f * speed;
             state = PlayerState.JUMP;
+        } else if (isJumping && (Input.GetKey("up") || Input.GetKey("w"))) {
+            if (jumpTimer > 0f) {
+                velocity.y = 1f * speed;
+                jumpTimer -= Time.fixedDeltaTime;
+            } else {
+                isJumping = false;
+            }
+        } else if (Input.GetKeyUp("up") || Input.GetKeyUp("w")) {
+            isJumping = false;
         }
 
         rigidbody.velocity = velocity;

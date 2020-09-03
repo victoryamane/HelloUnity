@@ -2354,7 +2354,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 906e0faa706e6b34cbaf6b6605284f95, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -2389,8 +2389,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 2043288677}
   animator: {fileID: 2043288680}
-  speed: 5
-  jump: 7
+  speed: 6.5
+  jumpTime: 0.3
   layerHit:
   - serializedVersion: 2
     m_Bits: 512
