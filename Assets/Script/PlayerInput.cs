@@ -13,6 +13,7 @@ public class PlayerInput : MonoBehaviour {
     private bool isGrounded;
     private bool isJumping;
     private float jumpTimer;
+    private float jumpBuffer;
 
     private int mask = 0;
 
@@ -67,11 +68,19 @@ public class PlayerInput : MonoBehaviour {
             state = PlayerState.JUMP;
         }
 
-        if (isGrounded && (Input.GetKeyDown("up") || Input.GetKeyDown("w"))) {
+        jumpBuffer -= Time.fixedDeltaTime;
+        bool isUpKeyDown = Input.GetKeyDown("up") || Input.GetKeyDown("w");
+        bool isJumpingEnabled = isGrounded && (isUpKeyDown || jumpBuffer > 0f);
+        
+        if (isJumpingEnabled) {
             isJumping = true;
             jumpTimer = jumpTime;
             velocity.y = 1f * speed;
             state = PlayerState.JUMP;
+            jumpBuffer = 0f;
+        } else if (!isGrounded && isUpKeyDown) {
+            jumpBuffer = 0.125f;
+
         } else if (isJumping && (Input.GetKey("up") || Input.GetKey("w"))) {
             if (jumpTimer > 0f) {
                 velocity.y = 1f * speed;
