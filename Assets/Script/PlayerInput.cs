@@ -53,12 +53,18 @@ public class PlayerInput : MonoBehaviour {
         Vector3 velocity = rigidbody.velocity;
         PlayerState state;
 
+        Quaternion rotation = transform.rotation;
         if (Input.GetKey("right") || Input.GetKey("d")) {
             velocity.x = 1f * speed;
             state = PlayerState.WALK;
+            rotation.y = 0f;
+            transform.rotation = rotation;
+            
         } else if (Input.GetKey("left") || Input.GetKey("a")) {
             velocity.x = -1f * speed;
             state = PlayerState.WALK;
+            rotation.y = 180f;
+            transform.rotation = rotation;
         } else {
             velocity.x = 0f;
             state = PlayerState.IDLE;
