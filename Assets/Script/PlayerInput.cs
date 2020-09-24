@@ -35,6 +35,7 @@ public class PlayerInput : MonoBehaviour {
         {
             setstate(playerstate.idle);
         }*/
+        // transform.Translate(new Vector3(5f * Time.unscaledDeltaTime, 0f));
     }
 
     private void FixedUpdate() {
@@ -59,7 +60,6 @@ public class PlayerInput : MonoBehaviour {
             state = PlayerState.WALK;
             rotation.y = 0f;
             transform.rotation = rotation;
-            
         } else if (Input.GetKey("left") || Input.GetKey("a")) {
             velocity.x = -1f * speed;
             state = PlayerState.WALK;
@@ -77,7 +77,7 @@ public class PlayerInput : MonoBehaviour {
         jumpBuffer -= Time.fixedDeltaTime;
         bool isUpKeyDown = Input.GetKeyDown("up") || Input.GetKeyDown("w");
         bool isJumpingEnabled = isGrounded && (isUpKeyDown || jumpBuffer > 0f);
-        
+
         if (isJumpingEnabled) {
             isJumping = true;
             jumpTimer = jumpTime;
@@ -86,7 +86,6 @@ public class PlayerInput : MonoBehaviour {
             jumpBuffer = 0f;
         } else if (!isGrounded && isUpKeyDown) {
             jumpBuffer = 0.125f;
-
         } else if (isJumping && (Input.GetKey("up") || Input.GetKey("w"))) {
             if (jumpTimer > 0f) {
                 velocity.y = 1f * speed;
