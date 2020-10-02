@@ -2389,6 +2389,7 @@ GameObject:
   - component: {fileID: 2043288677}
   - component: {fileID: 2043288679}
   - component: {fileID: 2043288680}
+  - component: {fileID: 2043288681}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2510,15 +2511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454015e5c2189b443b8c775675e52a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 2043288677}
-  animator: {fileID: 2043288680}
-  speed: 6.5
-  jumpTime: 0.3
-  layerHit:
-  - serializedVersion: 2
-    m_Bits: 512
-  - serializedVersion: 2
-    m_Bits: 1024
+  movement: {fileID: 2043288681}
 --- !u!95 &2043288680
 Animator:
   serializedVersion: 3
@@ -2538,6 +2531,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2043288681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043288674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972e4bd0d50c4262bbbf974155ecb97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbody: {fileID: 2043288677}
+  animator: {fileID: 2043288680}
+  speed: 7
+  jumpTime: 0.3
+  layerHit:
+  - serializedVersion: 2
+    m_Bits: 512
+  - serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &2140478199
 GameObject:
   m_ObjectHideFlags: 0
