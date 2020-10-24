@@ -45,10 +45,12 @@ public class PlayerMovement : MonoBehaviour {
             Jump();
         }
     }
+
     private void OnDrawGizmos() {
         Gizmos.color = Color.magenta;
         Gizmos.DrawRay(transform.position, Vector2.down * 1f);
     }
+
     public void Move(float horizontal) {
         Vector3 velocity = rigidbody.velocity;
         Quaternion rotation = transform.rotation;
@@ -60,6 +62,7 @@ public class PlayerMovement : MonoBehaviour {
         transform.rotation = rotation;
         rigidbody.velocity = velocity;
     }
+
     public void Stop() {
         Vector3 velocity = rigidbody.velocity;
         velocity.x = 0f;
@@ -67,6 +70,7 @@ public class PlayerMovement : MonoBehaviour {
         SetState(PlayerState.IDLE);
         rigidbody.velocity = velocity;
     }
+
     public void Jump() {
         if (isGrounded) {
             Vector3 velocity = rigidbody.velocity;
@@ -85,18 +89,19 @@ public class PlayerMovement : MonoBehaviour {
 
     public void KeepJumping() {
         if (!isJumping) return;
-        
+
         if (jumpTimer > 0f) {
             Vector3 velocity = rigidbody.velocity;
-                
+
             velocity.y = 1f * speed;
             jumpTimer -= Time.fixedDeltaTime;
-            
+
             rigidbody.velocity = velocity;
         } else {
             isJumping = false;
         }
     }
+
     public void StopJumping() {
         isJumping = false;
     }

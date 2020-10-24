@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
@@ -15,6 +14,11 @@ public class PlayerInput : MonoBehaviour {
 
        if (Input.GetKeyDown(KeyCode.Space)) {
            movement.Jump();
+           foreach (Action attack in Player.Instance.Attack) {
+               attack();
+           }
+
+           
            
        } else if (Input.GetKey(KeyCode.Space)){
            movement.KeepJumping();
